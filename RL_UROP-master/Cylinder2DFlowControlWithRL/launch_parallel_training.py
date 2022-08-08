@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
     config["learning_rate"] = 3e-4
     config["learning_starts"] = 0
-    config["batch_size"] = 128
+    config["batch_size"] = 160
     config["top_quantiles_to_drop_per_net"] = 3
     config["policy_kwargs"] = {
                                 "n_critics": 5,
@@ -50,15 +50,15 @@ if __name__ == '__main__':
     config["gamma"] = 0.99
     config["train_freq"] = 1
     config["target_update_interval"] = 1
-    config["gradient_steps"] = 20
+    config["gradient_steps"] = 22
 
-    config["buffer_size"] = int(1e5)
+    config["buffer_size"] = int(10e6)
     config["optimize_memory_usage"] = False
 
     config["ent_coef"] = "auto_0.01"
     config["target_entropy"] = "auto"
 
-    model = TQC('MlpPolicy', VecFrameStack(env, n_stack=10), tensorboard_log=savedir, **config)
+    model = TQC('MlpPolicy', VecFrameStack(env, n_stack=25), tensorboard_log=savedir, **config)
 
     checkpoint_callback = CheckpointCallback(
                                             save_freq=max(10, 1),
